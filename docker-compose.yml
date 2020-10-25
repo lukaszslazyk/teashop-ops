@@ -1,0 +1,53 @@
+version: "3"
+services:
+  reverse_proxy:
+    build: reverse_proxy
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      static-network:
+        ipv4_address: 172.28.0.2
+    depends_on:
+      - frontend
+      - backend
+  frontend:
+    build: frontend
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      static-network:
+        ipv4_address: 172.28.0.3
+  backend:
+    build: backend
+    restart: always
+    ports:
+      - "8081:80"
+    networks:
+      static-network:
+        ipv4_address: 172.28.0.4
+    environment:
+      - ConnectionStrings:Database=Server=tcp:172.28.0.5,1433;User ID=sa;Password=WsABZbpbd4jpRe4s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+    depends_on:
+      - db
+  db:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    restart: always
+    networks:
+      static-network:
+        ipv4_address: 172.28.0.5
+    environment:
+      - SA_PASSWORD=WsABZbpbd4jpRe4s
+      - ACCEPT_EULA=Y
+    volumes:
+      - mssql:/var/opt/mssql
+networks:
+  static-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/24
+volumes:
+  mssql:
