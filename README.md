@@ -9,6 +9,7 @@ The application environment consists of the following containers:
 - Frontend - User Interface application written in React
 - Backend - API application in .NET Core serving data and functionality to Frontend
 - Database - SQL Express database server
+- CDN - nginx server for serving assets, such as images
 
 ## Usage 
 
