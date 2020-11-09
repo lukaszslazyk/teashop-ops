@@ -19,6 +19,8 @@ services:
     networks:
       static-network:
         ipv4_address: 172.28.0.3
+    depends_on:
+      - cdn
   backend:
     build: backend
     restart: always
@@ -42,6 +44,14 @@ services:
       - ACCEPT_EULA=Y
     volumes:
       - mssql:/var/opt/mssql
+  cdn:
+    build: cdn
+    restart: always
+    ports:
+      - "8082:80"
+    networks:
+      static-network:
+        ipv4_address: 172.28.0.6
 networks:
   static-network:
     driver: bridge
