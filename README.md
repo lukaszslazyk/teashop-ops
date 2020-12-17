@@ -32,4 +32,4 @@ docker-compose up --build
 ```
 
 ## Notes
-- SQL Express database server takes some time to initialize after its container is up. Due to this fact, backend application might fail on startup as it tries to connect to the database and fails. Due to the usage of `restart: always` option in docker-compose file, the backend container will automatically restart on fail  until the database is fully initialized (usually it takes only one restart).
+- SQL Express database server takes some time to initialize after its container is up. Due to this fact, backend application might fail on startup as it tries to connect to the database and fails. Due to the usage of `restart: always` option in docker-compose file, the backend container will automatically restart on fail until the database is fully initialized (usually it takes only one restart).
