@@ -12,7 +12,11 @@ services:
       - frontend
       - backend
   frontend:
-    build: frontend
+    build:
+      context: frontend
+      args:
+        - API_ROOT=http://localhost:8081/api
+        - CDN_ROOT=http://localhost:8082
     restart: always
     ports:
       - "8080:80"
@@ -31,6 +35,7 @@ services:
         ipv4_address: 172.28.0.4
     environment:
       - ConnectionStrings:Database=Server=tcp:172.28.0.5,1433;User ID=sa;Password=WsABZbpbd4jpRe4s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - Cors:AllowedHosts:Prod=http://localhost
     depends_on:
       - db
   db:
