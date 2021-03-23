@@ -1,6 +1,6 @@
 # Teashop Ops
 
-Operational scripts for Teashop application, including setting up the complete application environment.
+Operational scripts for Teashop, including setting up the complete application environment.
 
 ## Teashop application environment
 
@@ -13,23 +13,21 @@ The application environment consists of the following containers:
 
 ## Usage 
 
-To setup the complete application environment, first put Frontend and Backend code into their respective folders in this project directory. Then run the following command:
-
+To quickly setup the complete application environment, run the setup script (setup.bat for Windows, setup.sh for Linux). You can also manually put dependent repositories into their respective directories and run the following command:
 ```
 docker-compose build
 ```
 
-To run the application:
-
+After setup, you can run the application with command:
 ```
 docker-compose up
 ```
 
-You can combine above commands:
-
+If you want to run the application in the background then use:
 ```
-docker-compose up --build
+docker-compose up -d
 ```
 
 ## Notes
-- SQL Express database server takes some time to initialize after its container is up. Due to this fact, backend application might fail on startup as it tries to connect to the database and fails. Due to the usage of `restart: always` option in docker-compose file, the backend container will automatically restart on fail until the database is fully initialized (usually it takes only one restart).
+
+- SQL Express database server takes some time to initialize after its container is up. Due to this fact, the backend service might fail on startup as it tries to connect to the database which is not yet initialized. However, due to the usage of `restart: always` option in docker-compose file, the backend container automatically restarts on fail until the database is fully initialized so the application should be fully functional after a short while.
